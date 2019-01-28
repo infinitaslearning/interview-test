@@ -4,12 +4,27 @@ namespace InterviewTest
 {
     public class Teacher : Person
     {
-        public Dictionary<string, Student> students;
-        public Teacher(string id, string name) : base(id, name)
+        // required for serialization
+        // ReSharper disable once UnusedMember.Global
+        public Teacher()
         {
-            this.students = new Dictionary<string, Student>();
         }
 
-        public Teacher() : base() { }
+        public List<Student> Students { get; set; }
+
+        public Teacher(string id, string name) : base(id, name)
+        {
+            Students = new List<Student>();
+        }
+
+        public void AddStudent(Student studentToAdd)
+        {
+            if (Students == null)
+            {
+                Students = new List<Student>();
+            }
+
+            Students.Add(studentToAdd);
+        }
     }
 }

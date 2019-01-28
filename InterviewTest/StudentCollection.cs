@@ -6,32 +6,44 @@ namespace InterviewTest
 {
     public class StudentCollection
     {
-
         private static StudentCollection instance;
         private Dictionary<string, Student> students;
 
         public static StudentCollection GetInstance()
         {
-            if (instance == null)
-            {
-                instance = new StudentCollection();
-                return instance;
-            }
+            if (instance != null) return instance;
+            instance = new StudentCollection();
             return instance;
         }
 
         private StudentCollection()
         {
-            this.students = new Dictionary<string, Student>();
+            students = new Dictionary<string, Student>();
         }
 
         internal void AddStudent(Student student)
         {
-            this.students.Add(student.id, student);
+            students[student.Id] = student;
         }
 
-        internal List<Student> GetStudents() {
-            return this.students.Values.ToList();
+        internal List<Student> GetStudents()
+        {
+            return students.Values.ToList();
+        }
+
+        public Student GetStudentById(string studentId)
+        {
+            return students[studentId];
+        }
+
+        public void Clear()
+        {
+            students = new Dictionary<string, Student>();
+        }
+
+        public void Update(Student studentToUpdate, StudentModule.PutParams updates)
+        {
+            students[studentToUpdate.Id].Name = updates.Name;
         }
     }
 }

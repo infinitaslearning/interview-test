@@ -2,12 +2,13 @@ namespace InterviewTest
 {
     public class Person
     {
-        public string name { get; set; }
-        public string id { get; set; }
-        public Person(string name, string id)
+        public string Name { get; set; }
+        public string Id { get; set; }
+
+        protected Person(string id, string name)
         {
-            this.name = name;
-            this.id = id;
+            Name = name;
+            Id = id;
         }
 
         public Person() { }
@@ -19,16 +20,12 @@ namespace InterviewTest
                 return false;
             }
 
-            if (this.id == ((Person)obj).id)
-            {
-                return true;
-            }
-            return base.Equals(obj);
+            return Id == ((Person)obj).Id || base.Equals(obj);
         }
 
         public override int GetHashCode()
         {
-            return this.id.GetHashCode();
+            return Id.GetHashCode();
         }
     }
 }

@@ -1,14 +1,15 @@
 using System;
+using System.Threading.Tasks;
 using Nancy;
 using Nancy.Testing;
 using Xunit;
 
 namespace InterviewTest.Tests
 {
-    public class StudentTest
+    public class StudentTest : IDisposable
     {
         [Fact]
-        async public void Should_GetAnEmptyListOfStudents()
+        public async Task Should_GetAnEmptyListOfStudentsAsync()
         {
             var bootstrapper = new DefaultNancyBootstrapper();
             var browser = new Browser(bootstrapper);
@@ -20,19 +21,11 @@ namespace InterviewTest.Tests
         }
 
         [Fact]
-        async public void Should_GetListOfStudents()
+        public async Task Should_GetListOfStudentsAsync()
         {
             var bootstrapper = new DefaultNancyBootstrapper();
             var browser = new Browser(bootstrapper);
-            var testStudent = new Student("1", "Student");
-
-            var postResult = await browser.Post("/students", with =>
-            {
-                with.HttpRequest();
-                with.JsonBody(testStudent);
-            });
-
-            Assert.Equal(HttpStatusCode.Created, postResult.StatusCode);
+            var testStudent = await browser.CreateTestStudentAsync();
 
             var result = await browser.Get("/students", with => with.HttpRequest());
 
@@ -41,5 +34,48 @@ namespace InterviewTest.Tests
             Assert.Single(studentList, testStudent);
         }
 
+        [Fact]
+        public async Task Should_UpdateStudentAsync()
+        {
+            var bootstrapper = new DefaultNancyBootstrapper();
+            var browser = new Browser(bootstrapper);
+            var testStudent = await browser.CreateTestStudentAsync();
+
+            var result = await browser.Put($"/students/{testStudent.Id}", with =>
+            {
+                with.HttpRequest();
+                with.JsonBody(new {Name = "Foo"});
+            });
+
+            Assert.Equal(HttpStatusCode.OK, result.StatusCode);
+            var updatedStudent = result.Body.DeserializeJson<Student>();
+            Assert.Equal(updatedStudent.Name, "Foo");
+        }
+
+        [Fact]
+        public async Task Should_GetListOfStudentsByTeacherAsync()
+        {
+            var bootstrapper = new DefaultNancyBootstrapper();
+            var browser = new Browser(bootstrapper);
+            var testStudent = await browser.CreateTestStudentAsync();
+            var testTeacher = await browser.CreateTestTeacherAsync();
+            await browser.AddStudentToTeacherAsync(testStudent.Id, testTeacher.Id);
+
+            var result = await browser.Get("/students", with =>
+            {
+                with.HttpRequest();
+                with.Query("teacherId", "1");
+            });
+
+            Assert.Equal(HttpStatusCode.OK, result.StatusCode);
+            var studentList = result.Body.DeserializeJson<Student[]>();
+            Assert.Single(studentList, testStudent);
+        }
+
+        public void Dispose()
+        {
+            StudentCollection.GetInstance().Clear();
+            TeacherCollection.GetInstance().Clear();
+        }
     }
 }
