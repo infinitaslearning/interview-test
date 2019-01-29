@@ -27,7 +27,7 @@ If you look at the code, you may notice a few issues. The pairing exercise will 
 
 ### Assignment
 
-In the pair programming session, you address the features listed above. The structure of the session will be like this:
+In the pair programming session, you will work on some of the features listed above. The structure of the session will be like this:
 
 - 5-10 minute Q&A with the Infinitas Programmer (To talk about the product and your approach)
 - 35-40 minutes of pair programming
