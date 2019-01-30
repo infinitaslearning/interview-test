@@ -36,7 +36,7 @@ namespace InterviewTest.Tests
             Assert.Single(teacherList, testTeacher);
         }
 
-        [Fact(Skip = "It works by itself, but not always")]
+        [Fact(Skip = "It works by itself, so remember to run this manually")]
         public async Task Should_AddAStudentToATeacherAsync()
         {
             var bootstrapper = new DefaultNancyBootstrapper();

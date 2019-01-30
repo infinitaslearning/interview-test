@@ -23,12 +23,12 @@ namespace InterviewTest
             public string Name { get; set; }
         }
 
-        public StudentModule()
+        public StudentModule() : base("/students")
         {
             var studentList = StudentCollection.GetInstance();
             var teacherList = TeacherCollection.GetInstance();
 
-            Get("/students", args =>
+            Get("/", args =>
             {
                 var studentRequestParams = this.Bind<StudentRequestParams>();
                 var teacherId = studentRequestParams.TeacherId;
@@ -36,13 +36,13 @@ namespace InterviewTest
                     ? Response.AsJson(teacherList.GetTeacherById(teacherId).Students)
                     : Response.AsJson(studentList.GetStudents());
             });
-            Post("/students", _ =>
+            Post("/", _ =>
             {
                 var student = this.Bind<Student>();
                 studentList.AddStudent(student);
                 return HttpStatusCode.Created;
             });
-            Put("/students/{studentId}", args =>
+            Put("/{studentId}", args =>
             {
                 var updates = this.Bind<PutParams>();
                 string studentId = args.studentId;

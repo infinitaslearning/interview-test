@@ -1,12 +1,11 @@
 using System;
-using Microsoft.Extensions.Logging;
 
 namespace InterviewTest
 {
     using Nancy;
     using Nancy.ModelBinding;
 
-    public sealed class HomeModule : NancyModule
+    public sealed class TeacherModule : NancyModule
     {
         protected class PutBody
         {
@@ -17,7 +16,7 @@ namespace InterviewTest
             public string StudentId { get; set; }
         }
 
-        public HomeModule()
+        public TeacherModule()
         {
             var teacherList = TeacherCollection.GetInstance();
             var studentList = StudentCollection.GetInstance();
@@ -30,22 +29,14 @@ namespace InterviewTest
                 teacherList.AddTeacher(teacher);
                 return HttpStatusCode.Created;
             });
-            Put("/teachers/{teacherId}", args =>
+            Put("/{teacherId}", args =>
             {
-                try
-                {
-                    var putBody = this.Bind<PutBody>();
-                    string teacherId = args.teacherId;
-                    var teacherToUpdate = teacherList.GetTeacherById(teacherId);
-                    var studentToAdd = studentList.GetStudentById(putBody.StudentId);
-                    teacherToUpdate.AddStudent(studentToAdd);
-                    return Response.AsJson(teacherToUpdate);
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.Message);
-                    return HttpStatusCode.InternalServerError;
-                }
+                var putBody = this.Bind<PutBody>();
+                string teacherId = args.teacherId;
+                var teacherToUpdate = teacherList.GetTeacherById(teacherId);
+                var studentToAdd = studentList.GetStudentById(putBody.StudentId);
+                teacherToUpdate.AddStudent(studentToAdd);
+                return Response.AsJson(teacherToUpdate);
             });
         }
     }
