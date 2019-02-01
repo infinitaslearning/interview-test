@@ -19,11 +19,8 @@ Currently, the system is REST API with an in-memory database. The current featur
 
 Our Product Managers talked with teachers about features they'd ❤ to have. The problem they run into is that there are no assignments in the system yet.  A student can hand in a (physical) assignment and the teacher will grade it. This needs to be registered and reported on. The task at hand is to:
 1) Assign an assignment to a student
-2) Grade an assignment (Pass/Fail)
-3) Basic reporting
-
-It is important to note, that these may not be the features that you'll work on so PLEASE do not implement them on your own time.
-If you look at the code, you may notice a few issues. The pairing exercise will explore some of these issues (whichever you think are most important) and possibly move in different directions based on your experience and desires.
+2) Grade an assignment with a simple Pass or Fail
+3) Basic reporting based on how many students passed the an assignment on a given day
 
 ### Assignment
 
@@ -32,3 +29,10 @@ In the pair programming session, you will work on some of the features listed ab
 - 5-10 minute Q&A with the Infinitas Programmer (To talk about the product and your approach)
 - 35-40 minutes of pair programming
 - 5-10 minutes of reflection on the process
+
+### Tips
+
+- It is worth preparing by looking at the code before you come into the interview
+- Please make sure that it runs on your machine
+- It might be helpful if you have an idea of an implementation approach
+- If you choose to implement the assignment on your own time, there will be further enhancements available, but we will neither give you bonus points nor an easier ride if you choose to do this.
