@@ -33,6 +33,6 @@ In the pair programming session, you will work on some of the features listed ab
 ### Tips
 
 - It is worth preparing by looking at the code before you come into the interview
-- Please make sure that it runs on your machine
+- Please make sure that it runs on your machine and bring your laptop to the interview
 - It might be helpful if you have an idea of an implementation approach
 - If you choose to implement the assignment on your own time, there will be further enhancements available, but we will neither give you bonus points nor an easier ride if you choose to do this.
