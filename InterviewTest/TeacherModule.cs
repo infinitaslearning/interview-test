@@ -16,13 +16,13 @@ namespace InterviewTest
             public string StudentId { get; set; }
         }
 
-        public TeacherModule()
+        public TeacherModule() : base("/teachers")
         {
             var teacherList = TeacherCollection.GetInstance();
             var studentList = StudentCollection.GetInstance();
 
-            Get("/teachers", args => Response.AsJson(teacherList.GetTeachers()));
-            Post("/teachers", _ =>
+            Get("/", args => Response.AsJson(teacherList.GetTeachers()));
+            Post("/", _ =>
             {
                 Console.WriteLine("I am here");
                 var teacher = this.Bind<Teacher>();
