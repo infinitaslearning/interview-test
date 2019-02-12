@@ -26,7 +26,7 @@ Our Product Managers talked with teachers about features they'd ❤ to have. The
 
 In the pair programming session, you will work on some of the features listed above. The structure of the session will be like this:
 
-- 5-10 minute Q&A with the Infinitas Programmer (To talk about the product and your approach)
+- 5-15 minutes of examining the existing code base to identify problems
 - 35-40 minutes of pair programming
 - 5-10 minutes of reflection on the process
 
