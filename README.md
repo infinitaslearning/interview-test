@@ -5,6 +5,8 @@ exercise and being given a problem to solve without any lead time.
 
 Therefore, the Infinitas Learning code exercise is going to be based around an existing code base. You are free to look at the code base at your leisure prior to the interview to familiarize yourself with the existing code. The challenge is described below.  You will have 45 minutes - 1 hour to work on the code with one of our engineers.  The expectation is NOT that you will finish the exercise but rather to see how you think, how you interact and how you approach the code to solve the problem.
 
+**You have the option of either working with the .NET or NodeJS versions of the exercise.**
+
 ## Infinitas Basic Learning Management System
 
 The Infinitas Basic Learning Management System is a simple system meant to help teachers manage their students and assign lessons as appropriate.  
@@ -17,7 +19,7 @@ Currently, the system is REST API with an in-memory database. The current featur
 3) Query students by teacher
 4) Update student
 
-Our Product Managers talked with teachers about features they'd ❤ to have. The problem they run into is that there are no assignments in the system yet.  A student can hand in a (physical) assignment and the teacher will grade it. This needs to be registered and reported on. The task at hand is to:
+Our Product Managers talked with teachers about features they'd ❤ to have. The problem they run into is that there are no assignments in the system yet.  The teacher is the direct user of the API and they should be able to do the following actions:
 1) Assign an assignment to a student
 2) Grade an assignment with a simple Pass or Fail
 3) Basic reporting based on how many students passed the an assignment on a given day
@@ -32,7 +34,7 @@ In the pair programming session, you will work on some of the features listed ab
 
 ### Tips
 
-- It is worth preparing by looking at the code before you come into the interview
+- It is worth preparing by looking at the code before you come into the interview; a portion of the interview will be focused on identifying the challenges with the existing code base.
 - Please make sure that it runs on your machine and bring your laptop to the interview
 - It might be helpful if you have an idea of an implementation approach
 - If you choose to implement the assignment on your own time, there will be further enhancements available, but we will neither give you bonus points nor an easier ride if you choose to do this.

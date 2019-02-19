@@ -1,0 +1,27 @@
+{
+  "name": "interview-test",
+  "version": "1.0.0",
+  "description": "Infinitas Learning Interview Test",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha",
+    "start": "node ./server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/infinitaslearning/interview-test.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/infinitaslearning/interview-test/issues"
+  },
+  "homepage": "https://github.com/infinitaslearning/interview-test#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "chai": "^4.2.0",
+    "express": "^4.16.4",
+    "mocha": "^5.2.0",
+    "supertest": "^3.4.2"
+  }
+}
