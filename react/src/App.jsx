@@ -30,7 +30,6 @@ class ConnectedApp extends Component {
     };
     this.handleNewTeacher = this.handleNewTeacher.bind(this);
     this.handleNewStudent = this.handleNewStudent.bind(this);
-    this.handleUpdateStudent = this.handleUpdateStudent.bind(this);
     this.handleAssignStudent = this.handleAssignStudent.bind(this);
   }
 
