@@ -11,7 +11,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "NODE_ENV=test mocha -r @babel/register",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -24,6 +24,13 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "@babel/cli": "^7.4.3",
+    "@babel/core": "^7.4.3",
+    "@babel/node": "^7.2.2",
+    "@babel/preset-env": "^7.4.3",
+    "@babel/register": "^7.4.0",
+    "chai": "^4.2.0",
+    "mocha": "^6.1.1",
     "react-redux": "^6.0.1",
     "redux": "^4.0.1"
   }
