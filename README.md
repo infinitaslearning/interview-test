@@ -37,6 +37,6 @@ In the pair programming session, you will work on some of the features listed ab
 ### Tips
 
 - It is worth preparing by looking at the code before you come into the interview; a portion of the interview will be focused on identifying the challenges with the existing code base.
-- Please make sure that it runs on your machine and bring your laptop to the interview
+- Please make sure that it runs on your machine and bring your laptop to the interview.  If you don't have a laptop, please let us know and we will provide you with a laptop with the code on it.
 - It might be helpful if you have an idea of an implementation approach
 - If you choose to implement the assignment on your own time, there will be further enhancements available, but we will neither give you bonus points nor an easier ride if you choose to do this.
