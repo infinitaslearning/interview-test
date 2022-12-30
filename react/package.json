@@ -30,7 +30,7 @@
     "@babel/preset-env": "^7.4.3",
     "@babel/register": "^7.4.0",
     "chai": "^4.2.0",
-    "mocha": "^6.1.1",
+    "mocha": "^10.2.0",
     "react-redux": "^6.0.1",
     "redux": "^4.0.1"
   }
