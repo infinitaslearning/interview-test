@@ -16,7 +16,7 @@ export type InitialState = {
   students: Student[];
 };
 
-export enum TestActionKind {
+export enum SchoolActionKind {
   ADD_TEACHER = "ADD_TEACHER",
   ADD_STUDENT = "ADD_STUDENT",
   UPDATE_STUDENT = "UPDATE_STUDENT",
@@ -25,19 +25,19 @@ export enum TestActionKind {
 
 export type SchoolAction =
   | {
-      type: TestActionKind.ADD_TEACHER;
+      type: SchoolActionKind.ADD_TEACHER;
       payload: Teacher;
     }
   | {
-      type: TestActionKind.ADD_STUDENT;
+      type: SchoolActionKind.ADD_STUDENT;
       payload: Student;
     }
   | {
-      type: TestActionKind.UPDATE_STUDENT;
+      type: SchoolActionKind.UPDATE_STUDENT;
       payload: Student;
     }
   | {
-      type: TestActionKind.ASSIGN_STUDENT_TO_TEACHER;
+      type: SchoolActionKind.ASSIGN_STUDENT_TO_TEACHER;
       payload: {
         teacherId: string;
         studentId: string;
@@ -68,36 +68,38 @@ export function useSchoolDispatch() {
   return useContext(SchoolDispatchContext);
 }
 
-function schoolReducer(
+export function schoolReducer(
   state: InitialState,
   action: SchoolAction
 ): InitialState {
   switch (action.type) {
-    case TestActionKind.ADD_TEACHER:
+    case SchoolActionKind.ADD_TEACHER:
       return { ...state, teachers: [...state.teachers, action.payload] };
-    case TestActionKind.ADD_STUDENT:
+    case SchoolActionKind.ADD_STUDENT:
       return { ...state, students: [...state.students, action.payload] };
-    case TestActionKind.UPDATE_STUDENT:
-      const newStudents = [];
+    case SchoolActionKind.UPDATE_STUDENT:
+      const updatedStudents: Student[] = [];
       for (let s of state.students) {
         if (s.id === action.payload.id) {
-          newStudents.push(action.payload);
+          updatedStudents.push(action.payload);
         } else {
-          newStudents.push(s);
+          updatedStudents.push(s);
         }
       }
-      return { ...state, students: newStudents };
+      return { ...state, students: updatedStudents };
+    case SchoolActionKind.ASSIGN_STUDENT_TO_TEACHER:
+      const updatedTeacher: Teacher[] = []
+        for (let t of state.teachers) {
+          if (t.id === action.payload.teacherId) {
+            updatedTeacher.push({...t, students: [...t.students, action.payload.studentId]})
+          } else {
+            updatedTeacher.push(t)
+          }
+        }
+        return { ...state, teachers: updatedTeacher };
     default:
       return state;
   }
-  // if (action.type === "ASSIGN_STUDENT_TO_TEACHER") {
-  //   for (let t in state.teachers) {
-  //     if (state.teachers[t].id === action.payload.teacherId) {
-  //       state.teachers[t].students.push(action.payload.studentId)
-  //     }
-  //   }
-  // }
-  return state;
 }
 
 const initialState: InitialState = {

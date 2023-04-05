@@ -1,7 +1,7 @@
 import { useState } from "react";
 import infinitasLogo from "/infinitas-logo.svg";
 import "./App.css";
-import { TestActionKind, useSchool, useSchoolDispatch } from "./school-context";
+import { SchoolActionKind, useSchool, useSchoolDispatch } from "./school-context";
 
 function App() {
   const school = useSchool();
@@ -10,6 +10,9 @@ function App() {
   const [studentEditingId, setUserEditingId] = useState<string | null>(null);
   const [updatedStudentName, setUpdatedStudentName] = useState<string>("");
 
+  const [teacherEditingId, setTeacherEditingId] = useState<string | null>(null);
+  const [newAssignedStudentId, setNewAssignedStudentId] = useState<string | null>(null);
+
   const handleTeacherSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -17,7 +20,7 @@ function App() {
     const teacherName = target.teacher.value;
     const id = crypto.randomUUID();
     schoolDispatch?.({
-      type: TestActionKind.ADD_TEACHER,
+      type: SchoolActionKind.ADD_TEACHER,
       payload: { name: teacherName, id, students: [] },
     });
 
@@ -31,7 +34,7 @@ function App() {
     const studentName = target.student.value;
     const id = crypto.randomUUID();
     schoolDispatch?.({
-      type: TestActionKind.ADD_STUDENT,
+      type: SchoolActionKind.ADD_STUDENT,
       payload: { name: studentName, id },
     });
 
@@ -41,7 +44,7 @@ function App() {
   const handleUpdateStudent = () => {
     if (studentEditingId) {
       schoolDispatch?.({
-        type: TestActionKind.UPDATE_STUDENT,
+        type: SchoolActionKind.UPDATE_STUDENT,
         payload: { name: updatedStudentName, id: studentEditingId },
       });
     }
@@ -50,7 +53,17 @@ function App() {
     setUpdatedStudentName("");
   };
 
-  //TODO: assign student
+  const handleAssignStudent = () => {
+    if (teacherEditingId && newAssignedStudentId) {
+      schoolDispatch?.({
+        type: SchoolActionKind.ASSIGN_STUDENT_TO_TEACHER,
+        payload: { teacherId: teacherEditingId, studentId: newAssignedStudentId },
+      });
+    }
+
+    setTeacherEditingId(null);
+    setNewAssignedStudentId(null);
+  };
 
   return (
     <div className="App">
@@ -76,7 +89,31 @@ function App() {
                 <tr key={teacher.id}>
                   <td>{teacher.id}</td>
                   <td>{teacher.name}</td>
-                  <td>TODO</td>
+                  <td>
+                    <ul>
+                    {teacher.students.map(s => <li>{school?.students.map(s1 => s === s1.id ? s1.name : '')}</li>)}
+                    </ul>
+                    {teacher.id === teacherEditingId ? (
+                      <>
+                        <select
+                          value={newAssignedStudentId || ""}
+                          onChange={(e) =>
+                            setNewAssignedStudentId(e.target.value)
+                          }
+                        >
+                          <option value={""}></option>
+                          {school?.students.map((student) => (
+                            <option value={student.id}>{student.name}</option>
+                          ))}
+                        </select>
+                        <button onClick={handleAssignStudent}>Assign</button>
+                      </>
+                    ) : (
+                      <button onClick={() => setTeacherEditingId(teacher.id)}>
+                        Assign student
+                      </button>
+                    )}
+                  </td>
                 </tr>
               );
             })}
