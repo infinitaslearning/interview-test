@@ -88,15 +88,18 @@ export function schoolReducer(
       }
       return { ...state, students: updatedStudents };
     case SchoolActionKind.ASSIGN_STUDENT_TO_TEACHER:
-      const updatedTeacher: Teacher[] = []
-        for (let t of state.teachers) {
-          if (t.id === action.payload.teacherId) {
-            updatedTeacher.push({...t, students: [...t.students, action.payload.studentId]})
-          } else {
-            updatedTeacher.push(t)
-          }
+      const updatedTeacher: Teacher[] = [];
+      for (let t of state.teachers) {
+        if (t.id === action.payload.teacherId) {
+          updatedTeacher.push({
+            ...t,
+            students: [...t.students, action.payload.studentId],
+          });
+        } else {
+          updatedTeacher.push(t);
         }
-        return { ...state, teachers: updatedTeacher };
+      }
+      return { ...state, teachers: updatedTeacher };
     default:
       return state;
   }

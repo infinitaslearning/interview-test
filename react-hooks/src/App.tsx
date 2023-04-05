@@ -1,7 +1,11 @@
 import { useState } from "react";
+import {
+  SchoolActionKind,
+  useSchool,
+  useSchoolDispatch,
+} from "./school-context";
 import infinitasLogo from "/infinitas-logo.svg";
 import "./App.css";
-import { SchoolActionKind, useSchool, useSchoolDispatch } from "./school-context";
 
 function App() {
   const school = useSchool();
@@ -11,7 +15,9 @@ function App() {
   const [updatedStudentName, setUpdatedStudentName] = useState<string>("");
 
   const [teacherEditingId, setTeacherEditingId] = useState<string | null>(null);
-  const [newAssignedStudentId, setNewAssignedStudentId] = useState<string | null>(null);
+  const [newAssignedStudentId, setNewAssignedStudentId] = useState<
+    string | null
+  >(null);
 
   const handleTeacherSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -57,7 +63,10 @@ function App() {
     if (teacherEditingId && newAssignedStudentId) {
       schoolDispatch?.({
         type: SchoolActionKind.ASSIGN_STUDENT_TO_TEACHER,
-        payload: { teacherId: teacherEditingId, studentId: newAssignedStudentId },
+        payload: {
+          teacherId: teacherEditingId,
+          studentId: newAssignedStudentId,
+        },
       });
     }
 
@@ -69,7 +78,7 @@ function App() {
     <div className="App">
       <div>
         <a href="/" target="_blank">
-          <img src={infinitasLogo} className="logo" alt="Vite logo" />
+          <img src={infinitasLogo} className="logo" alt="Infinitas logo" />
         </a>
       </div>
       <h1>IL Interview</h1>
@@ -91,7 +100,13 @@ function App() {
                   <td>{teacher.name}</td>
                   <td>
                     <ul>
-                    {teacher.students.map(s => <li>{school?.students.map(s1 => s === s1.id ? s1.name : '')}</li>)}
+                      {teacher.students.map((s) => (
+                        <li>
+                          {school?.students.map((s1) =>
+                            s === s1.id ? s1.name : ""
+                          )}
+                        </li>
+                      ))}
                     </ul>
                     {teacher.id === teacherEditingId ? (
                       <>
@@ -167,7 +182,7 @@ function App() {
         </table>
         <hr></hr>
         <form onSubmit={handleStudentSubmit}>
-          <label htmlFor="student">Student</label>
+          <label htmlFor="student" >Student</label>
           <input type="text" id="student" name="student" />
           <button type="submit">Add Student</button>
         </form>
