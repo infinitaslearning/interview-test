@@ -5,7 +5,7 @@ exercise and being given a problem to solve without any lead time.
 
 Therefore, the Infinitas Learning code exercise is going to be based around an existing code base. You are free to look at the code base at your leisure prior to the interview to familiarize yourself with the existing code. The challenge is described below. You will have 45 minutes - 1 hour to work on the code with one of our engineers. The expectation is NOT that you will finish the exercise but rather to see how you think, how you interact and how you approach the code to solve the problem.  Please note that if you spend the entire interview refactoring the code with the purpose of making the exercise easier to achieve, this is perfectly acceptable.
 
-**You have the option of either working with the .NET, NodeJS or React versions of the exercise. If React is your choice, you can then pick between a version with Classes and Redux or a more modern version with Hooks.**
+**Depending on which role you apply you have the option of either working with the .NET, NodeJS or React versions of the exercise. If React is your choice, you can then pick between a version with Classes and Redux or a more modern version with Hooks.**
 
 ## Infinitas Basic Learning Management System
 
@@ -37,6 +37,6 @@ In the pair programming session, you will work on some of the features listed ab
 ### Tips
 
 - It is worth preparing by looking at the code before you come into the interview; a portion of the interview will be focused on identifying the challenges with the existing code base.
-- Please make sure that it runs on your machine and bring your laptop to the interview.  If you don't have a laptop, please let us know and we will provide you with a laptop with the code on it.
+- Please make sure that it runs on your machine. If you have the interview in the office, bring your laptop and If you don't have one, please let us know and we will provide you with a laptop with the code on it.
 - It might be helpful if you have an idea of an implementation approach
 - If you choose to implement the assignment on your own time, there will be further enhancements available, but we will neither give you bonus points nor an easier ride if you choose to do this.
