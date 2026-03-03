@@ -11,9 +11,30 @@ export type Teacher = {
   students: string[];
 };
 
+export type Assignment = {
+  id: string;
+  title: string;
+};
+
+export type StudentAssignmentStatus = "assigned" | "pass" | "fail";
+
+export type StudentAssignment = {
+  id: string;
+  studentId: string;
+  assignmentId: string;
+  status: StudentAssignmentStatus;
+  /**
+   * ISO string date-time for when the assignment was assigned or graded.
+   * Reporting groups by calendar day (YYYY-MM-DD).
+   */
+  date: string;
+};
+
 export type InitialState = {
   teachers: Teacher[];
   students: Student[];
+  assignments: Assignment[];
+  studentAssignments: StudentAssignment[];
 };
 
 export enum SchoolActionKind {
@@ -21,6 +42,9 @@ export enum SchoolActionKind {
   ADD_STUDENT = "ADD_STUDENT",
   UPDATE_STUDENT = "UPDATE_STUDENT",
   ASSIGN_STUDENT_TO_TEACHER = "ASSIGN_STUDENT_TO_TEACHER",
+  ADD_ASSIGNMENT = "ADD_ASSIGNMENT",
+  ASSIGN_ASSIGNMENT_TO_STUDENT = "ASSIGN_ASSIGNMENT_TO_STUDENT",
+  GRADE_STUDENT_ASSIGNMENT = "GRADE_STUDENT_ASSIGNMENT",
 }
 
 export type SchoolAction =
@@ -41,6 +65,21 @@ export type SchoolAction =
       payload: {
         teacherId: string;
         studentId: string;
+      };
+    }
+  | {
+      type: SchoolActionKind.ADD_ASSIGNMENT;
+      payload: Assignment;
+    }
+  | {
+      type: SchoolActionKind.ASSIGN_ASSIGNMENT_TO_STUDENT;
+      payload: StudentAssignment;
+    }
+  | {
+      type: SchoolActionKind.GRADE_STUDENT_ASSIGNMENT;
+      payload: {
+        id: string;
+        status: Exclude<StudentAssignmentStatus, "assigned">;
       };
     };
 
@@ -87,19 +126,44 @@ export function schoolReducer(
         }
       }
       return { ...state, students: updatedStudents };
-    case SchoolActionKind.ASSIGN_STUDENT_TO_TEACHER:
-      const updatedTeacher: Teacher[] = [];
-      for (let t of state.teachers) {
+    case SchoolActionKind.ASSIGN_STUDENT_TO_TEACHER: {
+      const updatedTeachers: Teacher[] = [];
+      for (const t of state.teachers) {
         if (t.id === action.payload.teacherId) {
-          updatedTeacher.push({
+          updatedTeachers.push({
             ...t,
             students: [...t.students, action.payload.studentId],
           });
         } else {
-          updatedTeacher.push(t);
+          updatedTeachers.push(t);
         }
       }
-      return { ...state, teachers: updatedTeacher };
+      return { ...state, teachers: updatedTeachers };
+    }
+    case SchoolActionKind.ADD_ASSIGNMENT:
+      return {
+        ...state,
+        assignments: [...state.assignments, action.payload],
+      };
+    case SchoolActionKind.ASSIGN_ASSIGNMENT_TO_STUDENT:
+      return {
+        ...state,
+        studentAssignments: [...state.studentAssignments, action.payload],
+      };
+    case SchoolActionKind.GRADE_STUDENT_ASSIGNMENT: {
+      const updatedStudentAssignments: StudentAssignment[] = [];
+      for (const sa of state.studentAssignments) {
+        if (sa.id === action.payload.id) {
+          updatedStudentAssignments.push({
+            ...sa,
+            status: action.payload.status,
+          });
+        } else {
+          updatedStudentAssignments.push(sa);
+        }
+      }
+      return { ...state, studentAssignments: updatedStudentAssignments };
+    }
     default:
       return state;
   }
@@ -108,4 +172,6 @@ export function schoolReducer(
 const initialState: InitialState = {
   teachers: [],
   students: [],
+  assignments: [],
+  studentAssignments: [],
 };
