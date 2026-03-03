@@ -1,4 +1,4 @@
-import type { Student, Teacher } from "../school-context";
+import type { Student, Teacher } from "../../school-context";
 
 type TeacherTableProps = {
   teachers: Teacher[];
@@ -86,3 +86,4 @@ export function TeacherTable({
     </table>
   );
 }
+

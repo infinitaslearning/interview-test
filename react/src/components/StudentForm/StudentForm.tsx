@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { SchoolActionKind, useSchoolDispatch } from "../school-context";
+import { SchoolActionKind, useSchoolDispatch } from "../../school-context";
 
-export function TeacherForm() {
+export function StudentForm() {
   const schoolDispatch = useSchoolDispatch();
   const [name, setName] = useState("");
 
@@ -11,8 +11,8 @@ export function TeacherForm() {
     if (!trimmed) return;
     const id = crypto.randomUUID();
     schoolDispatch?.({
-      type: SchoolActionKind.ADD_TEACHER,
-      payload: { name: trimmed, id, students: [] },
+      type: SchoolActionKind.ADD_STUDENT,
+      payload: { name: trimmed, id },
     });
     setName("");
   };
@@ -21,18 +21,19 @@ export function TeacherForm() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <label htmlFor="teacher">Teacher name</label>
+      <label htmlFor="student">Student name</label>
       <input
         type="text"
-        id="teacher"
-        name="teacher"
+        id="student"
+        name="student"
         value={name}
         onChange={(e) => setName(e.target.value)}
         aria-invalid={!isValid && name.length > 0}
       />
       <button type="submit" disabled={!isValid}>
-        Add Teacher
+        Add Student
       </button>
     </form>
   );
 }
+

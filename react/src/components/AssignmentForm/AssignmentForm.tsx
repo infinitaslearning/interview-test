@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { SchoolActionKind, useSchoolDispatch } from "../school-context";
+import { SchoolActionKind, useSchoolDispatch } from "../../school-context";
 
 export function AssignmentForm() {
   const dispatch = useSchoolDispatch();

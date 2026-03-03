@@ -2,7 +2,7 @@ import type {
   Assignment,
   Student,
   StudentAssignment,
-} from "../school-context";
+} from "../../school-context";
 
 type StudentTableProps = {
   students: Student[];
@@ -157,3 +157,4 @@ export function StudentTable({
     </table>
   );
 }
+
